@@ -1,15 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import SmartWallet from './components/SmartWallet';
 import SCW from './components/SCW';
-import Gasless from './components/Gasless';
+import SocialLoginPage from './components/SocialLoginPage';
+import SmartAcc from './components/SmartAcc';
 
 function App() {
   return (
     <div className="App">
-      {/* <SmartWallet/> */}
-      <Gasless/>
       <SCW/>
+      <SocialLoginPage/>
+      <SmartAcc/>
     </div>
   );
 }
