@@ -39,19 +39,6 @@ const SmartAcc = () => {
       const address1 = await smartAccount.getAddress();
       console.log("Smart Account", smartAccount);
       console.log("Smart Account Address", address1);
-
-      const balanceParams = {
-        chainId: ChainId.POLYGON_MUMBAI,
-        eoaAddress: smartAccount.address,
-        tokenAddresses: [],
-      };
-      const balFromSdk = await smartAccount.getAlltokenBalances(balanceParams);
-      console.info("getAlltokenBalances", balFromSdk);
-      const usdBalFromSdk = await smartAccount.getTotalBalanceInUsd(
-        balanceParams
-      );
-      console.info("getTotalBalanceInUsd", usdBalFromSdk);
-
       const tx = await smartAccount.deployWalletUsingPaymaster();
     };
 

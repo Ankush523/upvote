@@ -2,9 +2,15 @@ import React from "react";
 import SocialLogin from "@biconomy/web3-auth";
 import "@biconomy/web3-auth/dist/src/style.css";
 import { ChainId } from "@biconomy/core-types";
+import SmartAccount from "@biconomy/smart-account";
 import { ethers } from "ethers";
+import { useAccount, useProvider } from "wagmi";
 
 const SocialLoginPage = () => {
+
+
+  const { address } = useAccount();
+  const provider = useProvider();
 
   let options = {
     activeNetworkId: ChainId.GOERLI,
@@ -27,6 +33,13 @@ const SocialLoginPage = () => {
     ],
   };
 
+  const tx = {
+    to:"0x7E9BC94e21BEb85DaFAF2Afd5530DE876951124D",
+    from : "0x538F207794289005d51234f336FdB387f3b18ded",
+    value: ethers.utils.parseEther("0.02"),
+    data:"0xd0e30db0"
+  }
+
  
   const login = async () => {
     
@@ -39,6 +52,16 @@ const SocialLoginPage = () => {
     const accounts = await provider.listAccounts();
     console.log("EOA address", accounts);
 
+    let smartAccount = new SmartAccount(provider, options);
+      smartAccount = await smartAccount.init();
+      const address1 = smartAccount.address;
+      console.log("Smart Account", smartAccount);
+      console.log("Smart Account Address", address1);
+
+      const txResponse = await smartAccount.deployWalletUsingPaymaster();
+      console.log(txResponse);
+      const txResponse2 = await smartAccount.sendGaslessTransaction({ transaction: tx });
+      console.log(txResponse2);
   };
 
   return (
